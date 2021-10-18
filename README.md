@@ -7,8 +7,6 @@
 
 >   You can access the live demo of this repo [here]()
 
-![screenshot]()
-
 
 ## How to Setup
 > You can simply clone or download [this repository](git@github.com:Chimwemwe-127001/awesome_books_project.git), and use your favoright browser or code editor to run this program.
