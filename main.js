@@ -1,14 +1,16 @@
-const bookList = document.querySelector(".books")
+const bookList = document.querySelector('.books');
+const title = document.getElementById('title');
+const author = document.getElementById('author');
 
-const Book = function (title, author) {
+const Book = function theBook(title, author) {
   this.title = title;
   this.author = author;
-}
+};
 
-let storedData = []
+let storedData = [];
 
 function addBookToList(newBook) {
-  let bookTemp = `
+  const bookTemp = `
     <div class="book">
       <h2>Title: ${newBook.title}</h2>
       <h2>Author: ${newBook.author}</h2>
@@ -16,42 +18,36 @@ function addBookToList(newBook) {
       <hr>
     </div>
   `;
-  return document.querySelector('.books').innerHTML += bookTemp;
+  document.querySelector('.books').innerHTML += bookTemp;
+  return document.querySelector('.books').innerHTML;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   if (bookList !== null) {
     storedData = [...JSON.parse(localStorage.getItem('localBookList'))];
     storedData.forEach((item) => {
-      addBookToList(item)
-    })
+      addBookToList(item);
+    });
   }
-})
+});
 
-const addBook= document.querySelector('#add-book');
+const addBook = document.querySelector('#add-book');
 addBook.addEventListener('click', (e) => {
-  const newBook = new Book(title.value, author.value)
+  const newBook = new Book(title.value, author.value);
   e.preventDefault();
   addBookToList(newBook);
   storedData.push(newBook);
-  title.value = "";
-  author.value = "";
-  localStorage.setItem('localBookList', JSON.stringify(storedData)); 
-
+  title.value = '';
+  author.value = '';
+  localStorage.setItem('localBookList', JSON.stringify(storedData));
 });
 
-bookList.addEventListener('click', (el) =>{
-  if(el.target.classList.contains('remove')) {
+bookList.addEventListener('click', (el) => {
+  if (el.target.classList.contains('remove')) {
     document.querySelector('.books').removeChild(el.target.parentElement);
-    const removeBook = storedData.find((item) => item.title === el.target.parentElement.firstChild.innerText);
+    const bookD = el.target.parentElement;
+    const removeBook = storedData.find((item) => item.title === bookD.firstChild.innerText);
     storedData.splice(storedData.indexOf(removeBook), 1);
-    localStorage.setItem('localBookList', JSON.stringify(storedData))
-
+    localStorage.setItem('localBookList', JSON.stringify(storedData));
   }
-} )
-
-
-const title = document.getElementById('title')
-const author = document.getElementById('author')
-
-title.required = true;
+});
